@@ -1,0 +1,26 @@
+{
+    "model": "svm",
+    "data": {
+        "drug": {
+            "modality": ["structure"],
+            "featurizer": {
+                "structure": {
+                    "name": "fp",
+                    "fptype": "morgan",
+                    "fpradius": 2,
+                    "fpsize": 1024,
+                    "return_type": "np"
+                }
+            }
+        },
+        "protein": {
+            "modality": ["structure"],
+            "featurizer": {
+                "structure": {
+                    "name": "CTD",
+                    "return_type": "np"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "model": "deepeik",
+    "data": {
+        "drug": {
+            "modality": ["structure", "kg", "text"],
+            "featurizer": {
+                "structure": {
+                    "name": "BaseGNN",
+                    "max_len": 1200
+                },
+                "kg": {
+                    "name": "KGE",
+                    "kg_name": "BMKG",
+                    "kg_path": "../assets/kg/BMKG/",
+                    "save_path": "../assets/kg/BMKG/kge",
+                    "embed_dim": 256
+                },
+                "text": {
+                    "name": "TransformerEncoder",
+                    "transformer_type": "bert",
+                    "model_name_or_path": "../ckpts/text_ckpts/pubmedbert_uncased",
+                    "max_length": 512,
+                    "fixed_length": false,
+                    "output_type": "pooler_output",
+                    "device": "cuda:0"
+                }
+            }
+        },
+        "concat_text_first": true
+    },
+    "network": {
+        "drug": {
+            "structure": {
+                "name": "graphmvp",
+                "config_path": "configs/encoders/drug/graphmvp.json"
+            },
+            "kg": {
+                "embedding_dim": 256
+            }
+        },
+        "pred_head": {
+            "hidden_size": [1024, 1024, 256],
+            "activation": "relu",
+            "batch_norm": false,
+            "dropout": 0.1
+        },
+        "sparse_attention": {
+            "active": true,
+            "k": 16,
+            "heads": 4,
+            "mask_prob": 0.05
+        },
+        "text_dim": 768,
+        "projection_dim": 256,
+        "projection_dropout": 0.1
+    }
+}

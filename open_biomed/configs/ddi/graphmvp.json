@@ -1,0 +1,28 @@
+{
+    "model": "graphmvp",
+    "data": {
+        "drug": {
+            "modality": ["structure"],
+            "featurizer": {
+                "structure": {
+                    "name": "BaseGNN"
+                }
+            }
+        }
+    },
+    "network": {
+        "drug": {
+            "name": "graphmvp",
+            "config_path": "configs/encoders/drug/graphmvp.json"
+        },
+        "pred_head": {
+            "hidden_size": [1024, 1024, 256],
+            "activation": "relu",
+            "batch_norm": false,
+            "dropout": 0.1
+        },
+        "text_dim": 768,
+        "projection_dim": 256,
+        "projection_dropout": 0.1
+    }
+}
